@@ -6,8 +6,9 @@ import styles from './ArrowButton.module.scss';
 export type OnClick = (isOpen: boolean) => void;
 
 export const ArrowButton = ({ isOpen, onClick }: { isOpen: boolean, onClick: OnClick }) => {
-	const handleClick = () => {
+	const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
 		onClick(!isOpen);
+		event.stopPropagation();
 	}
 	return (
 		/* Не забываем указаывать role и aria-label атрибуты для интерактивных элементов */

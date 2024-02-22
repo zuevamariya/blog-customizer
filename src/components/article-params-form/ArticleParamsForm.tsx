@@ -2,9 +2,15 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { Text } from '../text';
 import { Select } from '../select';
-import { backgroundColors, contentWidthArr, fontColors, fontFamilyOptions, fontSizeOptions, defaultArticleState } from 'src/constants/articleProps';
+import { 
+	backgroundColors, 
+	contentWidthArr, 
+	fontColors, 
+	fontFamilyOptions, 
+	fontSizeOptions, 
+	defaultArticleState, 
+} from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
-
 
 import styles from './ArticleParamsForm.module.scss';
 
@@ -16,33 +22,34 @@ export const ArticleParamsForm = () => {
 	const [isContainerOpen, setIsContainerOpen] = useState<boolean>(false);
 	const [isForm, setIsForm] = useState(defaultArticleState);
 
-	const containerRef = useRef<HTMLDivElement | null>(null);
+	const containerRef = useRef<HTMLFormElement | null>(null);
 
-	const handleArrowButtonClick = () => {
-		setIsContainerOpen(!isContainerOpen);
+	const handleArrowButtonClick = (isOpen: boolean) => {
+		setIsContainerOpen(isOpen);
 	};
 
 	const handleOutsideClick = (event: MouseEvent) => {
-		if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+		const test =
+			containerRef.current &&
+			event.composedPath().includes(containerRef.current);
+		if (event.target != containerRef.current && !test) {
 			setIsContainerOpen(false);
 		}
 	};
 
 	useEffect(() => {
-		if (isContainerOpen) {
-			document.addEventListener('click', handleOutsideClick);
+		document.addEventListener('click', handleOutsideClick);
 
-			return () => {
-				document.removeEventListener('click', handleOutsideClick);
-			};
-		}
-	}, [isContainerOpen]);
+		return () => {
+			document.removeEventListener('click', handleOutsideClick);
+		};
+	}, []);
 
 	return (
-		<div ref={containerRef}>
+		<div>
 			<ArrowButton isOpen={isContainerOpen} onClick={handleArrowButtonClick} />
 			<aside className={`${styles.container} ${isContainerOpen ? styles.containerOpen : ''}`}>
-				<form className={styles.form}>
+				<form className={styles.form} ref={containerRef}>
 					<Text size={31} weight={800} uppercase>{'Задайте параметры'}</Text>				
 					<Select 
 						selected={isForm.fontFamilyOption}
