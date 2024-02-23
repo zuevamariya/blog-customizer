@@ -11,20 +11,20 @@
 }
 
 .buttonSubmit {
-	background: var(--sunny, rgba(255, 200, 2, 1));
+	background: var(--sunny, rgb(255 200 2 / 100%));
 }
 
 .buttonReset {
-	background: var(--white, rgba(255, 255, 255, 1));
+	background: var(--white, rgb(255 255 255 / 100%));
 }
 
 .buttonSubmit:hover,
 .buttonSubmit:active {
-	background: var(--yellow, rgba(255, 237, 171, 1));
+	background: var(--yellow, rgb(255 237 171 / 100%));
 }
 
 .buttonReset:hover,
 .buttonReset:active {
-	background: var(--black, rgba(0, 0, 0, 1));
-	color: rgba(255, 255, 255, 1);
+	color: rgb(255 255 255 / 100%);
+	background: var(--black, rgb(0 0 0 / 100%));
 }

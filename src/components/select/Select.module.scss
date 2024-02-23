@@ -44,7 +44,7 @@
 
 .selectWrapper:not([data-is-active='true'])
 	.placeholder:not([data-status='invalid']):hover {
-		outline: 1px solid rgba(255, 200, 2, 1);
+	outline: 1px solid rgb(255 200 2 / 100%);
 }
 
 .select {
@@ -78,11 +78,11 @@
 }
 
 .option:hover {
-	background: var(--grey, rgba(238, 238, 238, 1));
+	background: var(--grey, rgb(238 238 238 / 100%));
 }
 
 .option:active {
-	background: var(--grey, rgba(215, 215, 215, 1));
+	background: var(--grey, rgb(215 215 215 / 100%));
 }
 
 @mixin option-color-before {

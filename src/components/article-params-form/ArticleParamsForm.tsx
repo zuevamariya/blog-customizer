@@ -17,16 +17,20 @@ import { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
 import { Separator } from '../separator';
 
 interface ArticleParamsFormProps {
-	setArticleParams: Dispatch<SetStateAction<{
+	setArticleParams: Dispatch<
+		SetStateAction<{
 			fontFamilyOption: OptionType;
 			fontColor: OptionType;
 			backgroundColor: OptionType;
 			contentWidth: OptionType;
 			fontSizeOption: OptionType;
-	}>>;
-};
+		}>
+	>;
+}
 
-export const ArticleParamsForm = ({setArticleParams}: ArticleParamsFormProps) => {
+export const ArticleParamsForm = ({
+	setArticleParams,
+}: ArticleParamsFormProps) => {
 	const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 	const [isForm, setIsForm] = useState(defaultArticleState);
 	const containerRef = useRef<HTMLFormElement | null>(null);
@@ -48,8 +52,8 @@ export const ArticleParamsForm = ({setArticleParams}: ArticleParamsFormProps) =>
 
 	//Обновление данных страницы, с учетом указанных значений в форме, при ее отправке(submit)
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setArticleParams(isForm);
+		event.preventDefault();
+		setArticleParams(isForm);
 		setIsFormOpen(false);
 	};
 
@@ -75,7 +79,10 @@ export const ArticleParamsForm = ({setArticleParams}: ArticleParamsFormProps) =>
 				className={`${styles.container} ${
 					isFormOpen ? styles.containerOpen : ''
 				}`}>
-				<form className={styles.form} ref={containerRef} onSubmit={handleSubmit}>
+				<form
+					className={styles.form}
+					ref={containerRef}
+					onSubmit={handleSubmit}>
 					<Text size={31} weight={800} uppercase>
 						{'Задайте параметры'}
 					</Text>
