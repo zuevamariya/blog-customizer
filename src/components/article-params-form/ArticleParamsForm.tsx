@@ -9,31 +9,55 @@ import {
 	fontFamilyOptions,
 	fontSizeOptions,
 	defaultArticleState,
+	OptionType,
 } from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
-
 import styles from './ArticleParamsForm.module.scss';
-
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
 import { Separator } from '../separator';
 
-export const ArticleParamsForm = () => {
-	const [isContainerOpen, setIsContainerOpen] = useState<boolean>(false);
-	const [isForm, setIsForm] = useState(defaultArticleState);
+interface ArticleParamsFormProps {
+	setArticleParams: Dispatch<SetStateAction<{
+			fontFamilyOption: OptionType;
+			fontColor: OptionType;
+			backgroundColor: OptionType;
+			contentWidth: OptionType;
+			fontSizeOption: OptionType;
+	}>>;
+};
 
+export const ArticleParamsForm = ({setArticleParams}: ArticleParamsFormProps) => {
+	const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+	const [isForm, setIsForm] = useState(defaultArticleState);
 	const containerRef = useRef<HTMLFormElement | null>(null);
 
+	//Открытие/закрытие кнопкой-стрелкой
 	const handleArrowButtonClick = (isOpen: boolean) => {
-		setIsContainerOpen(isOpen);
+		setIsFormOpen(isOpen);
 	};
 
+	//Закрытие кликом по оверлею
 	const handleOutsideClick = (event: MouseEvent) => {
 		const test =
 			containerRef.current &&
 			event.composedPath().includes(containerRef.current);
 		if (event.target != containerRef.current && !test) {
-			setIsContainerOpen(false);
+			setIsFormOpen(false);
 		}
+	};
+
+	//Обновление данных страницы, с учетом указанных значений в форме, при ее отправке(submit)
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setArticleParams(isForm);
+		setIsFormOpen(false);
+	};
+
+	//Данные страницы и формы скинуты до дефолтных значений(reset)
+	const handleReset = () => {
+		setIsForm(defaultArticleState);
+		setArticleParams(defaultArticleState);
+		setIsFormOpen(false);
 	};
 
 	useEffect(() => {
@@ -46,12 +70,12 @@ export const ArticleParamsForm = () => {
 
 	return (
 		<div>
-			<ArrowButton isOpen={isContainerOpen} onClick={handleArrowButtonClick} />
+			<ArrowButton isOpen={isFormOpen} onClick={handleArrowButtonClick} />
 			<aside
 				className={`${styles.container} ${
-					isContainerOpen ? styles.containerOpen : ''
+					isFormOpen ? styles.containerOpen : ''
 				}`}>
-				<form className={styles.form} ref={containerRef}>
+				<form className={styles.form} ref={containerRef} onSubmit={handleSubmit}>
 					<Text size={31} weight={800} uppercase>
 						{'Задайте параметры'}
 					</Text>
@@ -98,7 +122,7 @@ export const ArticleParamsForm = () => {
 						title='ширина контента'
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' type='reset' />
+						<Button title='Сбросить' onClick={handleReset} type='reset' />
 						<Button title='Применить' type='submit' />
 					</div>
 				</form>
