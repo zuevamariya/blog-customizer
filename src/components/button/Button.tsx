@@ -9,10 +9,10 @@ export const Button = ({
 }: {
 	title: string;
 	onClick?: () => void;
-	type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+	type?: 'submit' | 'reset';
 }) => {
 	return (
-		<button className={styles.button} type={type} onClick={onClick}>
+		<button className={`${styles.button} ${type === 'submit' ? styles.buttonSubmit : styles.buttonReset}`} type={type} onClick={onClick}>
 			<Text weight={800} uppercase>
 				{title}
 			</Text>
