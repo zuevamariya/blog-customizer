@@ -48,7 +48,7 @@ export const Text = ({
 		{ [styles.uppercase]: uppercase },
 		styles[`${align}`],
 		styles[`${family}`],
-		{ [styles.dynamicLite]: dynamicLite },
+		{ [styles.dynamicLite]: dynamicLite }
 	);
 	return <Tag className={className}>{children}</Tag>;
 };

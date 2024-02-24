@@ -69,12 +69,9 @@ export const ArticleParamsForm = ({
 			<aside
 				className={clsx({
 					[styles.container]: true,
-					[styles.containerOpen]: isFormOpen
+					[styles.containerOpen]: isFormOpen,
 				})}>
-				<form
-					className={styles.form}
-					ref={formRef}
-					onSubmit={handleSubmit}>
+				<form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
 					<Text size={31} weight={800} uppercase>
 						{'Задайте параметры'}
 					</Text>

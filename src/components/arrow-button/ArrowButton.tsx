@@ -16,7 +16,7 @@ export const ArrowButton = ({
 	const handleClick = () => {
 		onClick(!isOpen);
 	};
-	
+
 	return (
 		/* Не забываем указаывать role и aria-label атрибуты для интерактивных элементов */
 		<div
@@ -25,7 +25,7 @@ export const ArrowButton = ({
 			tabIndex={0}
 			className={clsx({
 				[styles.container]: true,
-				[styles.containerOpen]: isOpen
+				[styles.containerOpen]: isOpen,
 			})}
 			onClick={handleClick}>
 			<img
@@ -33,7 +33,7 @@ export const ArrowButton = ({
 				alt='иконка стрелочки'
 				className={clsx({
 					[styles.arrow]: true,
-					[styles.arrowOpen]: isOpen
+					[styles.arrowOpen]: isOpen,
 				})}
 			/>
 		</div>

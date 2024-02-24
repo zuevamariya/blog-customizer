@@ -16,8 +16,8 @@ export const Button = ({
 		<button
 			className={clsx({
 				[styles.button]: true,
-				[styles.buttonSubmit]: type ==='submit',
-				[styles.buttonReset]: type ==='reset'
+				[styles.buttonSubmit]: type === 'submit',
+				[styles.buttonReset]: type === 'reset',
 			})}
 			type={type}
 			onClick={onClick}>
