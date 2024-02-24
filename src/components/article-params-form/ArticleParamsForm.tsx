@@ -34,7 +34,7 @@ export const ArticleParamsForm = ({
 	setArticleParams,
 }: ArticleParamsFormProps) => {
 	const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
-	const [isForm, setIsForm] = useState(defaultArticleState);
+	const [FormState, setFormState] = useState(defaultArticleState);
 	const formRef = useRef<HTMLFormElement | null>(null);
 
 	//Закрытие формы кликом по оверлею и нажатием на Escape
@@ -52,13 +52,13 @@ export const ArticleParamsForm = ({
 	//Обновление данных страницы, с учетом указанных значений в форме, при ее отправке(submit)
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		setArticleParams(isForm);
+		setArticleParams(FormState);
 		setIsFormOpen(false);
 	};
 
 	//Данные страницы и формы скинуты до дефолтных значений(reset)
 	const handleReset = () => {
-		setIsForm(defaultArticleState);
+		setFormState(defaultArticleState);
 		setArticleParams(defaultArticleState);
 		setIsFormOpen(false);
 	};
@@ -76,44 +76,44 @@ export const ArticleParamsForm = ({
 						{'Задайте параметры'}
 					</Text>
 					<Select
-						selected={isForm.fontFamilyOption}
+						selected={FormState.fontFamilyOption}
 						options={fontFamilyOptions}
 						onChange={(fontFamily) =>
-							setIsForm({ ...isForm, fontFamilyOption: fontFamily })
+							setFormState({ ...FormState, fontFamilyOption: fontFamily })
 						}
 						title='шрифт'
 					/>
 					<RadioGroup
 						name=''
 						options={fontSizeOptions}
-						selected={isForm.fontSizeOption}
+						selected={FormState.fontSizeOption}
 						onChange={(fontSize) =>
-							setIsForm({ ...isForm, fontSizeOption: fontSize })
+							setFormState({ ...FormState, fontSizeOption: fontSize })
 						}
 						title='размер шрифта'
 					/>
 					<Select
-						selected={isForm.fontColor}
+						selected={FormState.fontColor}
 						options={fontColors}
 						onChange={(fontColor) =>
-							setIsForm({ ...isForm, fontColor: fontColor })
+							setFormState({ ...FormState, fontColor: fontColor })
 						}
 						title='цвет шрифта'
 					/>
 					<Separator />
 					<Select
-						selected={isForm.backgroundColor}
+						selected={FormState.backgroundColor}
 						options={backgroundColors}
 						onChange={(background) =>
-							setIsForm({ ...isForm, backgroundColor: background })
+							setFormState({ ...FormState, backgroundColor: background })
 						}
 						title='цвет фона'
 					/>
 					<Select
-						selected={isForm.contentWidth}
+						selected={FormState.contentWidth}
 						options={contentWidthArr}
 						onChange={(content) =>
-							setIsForm({ ...isForm, contentWidth: content })
+							setFormState({ ...FormState, contentWidth: content })
 						}
 						title='ширина контента'
 					/>

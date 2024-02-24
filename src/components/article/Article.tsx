@@ -3,7 +3,6 @@ import plane from 'src/images/plane.png';
 import { Text } from 'components/text';
 
 import styles from './Article.module.scss';
-//import { Spacing } from '../spacing/Spaysing';
 
 export const Article = () => {
 	return (
