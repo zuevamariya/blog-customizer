@@ -11,6 +11,11 @@
 	@include typography(18, 400, 'Open Sans');
 }
 
+.textButtonResetHover:hover,
+.textButtonResetHover:active {
+	color: #ffffff;
+}
+
 .open-sans {
 	font-family: 'Open Sans', sans-serif;
 }

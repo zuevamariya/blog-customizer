@@ -1,6 +1,7 @@
 import arrow from 'src/images/arrow.svg';
 
 import styles from './ArrowButton.module.scss';
+import clsx from 'clsx';
 
 /** Функция для обработки открытия/закрытия формы */
 export type OnClick = (isOpen: boolean) => void;
@@ -12,22 +13,28 @@ export const ArrowButton = ({
 	isOpen: boolean;
 	onClick: OnClick;
 }) => {
-	const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+	const handleClick = () => {
 		onClick(!isOpen);
-		event.stopPropagation();
 	};
+	
 	return (
 		/* Не забываем указаывать role и aria-label атрибуты для интерактивных элементов */
 		<div
 			role='button'
 			aria-label='Открыть/Закрыть форму параметров статьи'
 			tabIndex={0}
-			className={`${styles.container} ${isOpen ? styles.containerOpen : ''}`}
+			className={clsx({
+				[styles.container]: true,
+				[styles.containerOpen]: isOpen
+			})}
 			onClick={handleClick}>
 			<img
 				src={arrow}
 				alt='иконка стрелочки'
-				className={`${styles.arrow} ${isOpen ? styles.arrowOpen : ''}`}
+				className={clsx({
+					[styles.arrow]: true,
+					[styles.arrowOpen]: isOpen
+				})}
 			/>
 		</div>
 	);

@@ -1,6 +1,7 @@
 import { Text } from 'components/text';
 
 import styles from './Button.module.scss';
+import clsx from 'clsx';
 
 export const Button = ({
 	title,
@@ -13,9 +14,11 @@ export const Button = ({
 }) => {
 	return (
 		<button
-			className={`${styles.button} ${
-				type === 'submit' ? styles.buttonSubmit : styles.buttonReset
-			}`}
+			className={clsx({
+				[styles.button]: true,
+				[styles.buttonSubmit]: type ==='submit',
+				[styles.buttonReset]: type ==='reset'
+			})}
 			type={type}
 			onClick={onClick}>
 			<Text weight={800} uppercase>

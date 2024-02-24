@@ -43,8 +43,7 @@ export const Select = (props: SelectProps) => {
 		onChange?.(option);
 	};
 
-	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = (event) => {
-		event.stopPropagation();
+	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
 		setIsOpen((isOpen) => !isOpen);
 	};
 

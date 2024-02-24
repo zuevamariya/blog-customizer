@@ -13,8 +13,10 @@ import {
 } from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group';
 import styles from './ArticleParamsForm.module.scss';
-import { useState, useRef, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, useRef, Dispatch, SetStateAction } from 'react';
 import { Separator } from '../separator';
+import { useClose } from 'src/hooks/useClose';
+import clsx from 'clsx';
 
 interface ArticleParamsFormProps {
 	setArticleParams: Dispatch<
@@ -33,21 +35,18 @@ export const ArticleParamsForm = ({
 }: ArticleParamsFormProps) => {
 	const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 	const [isForm, setIsForm] = useState(defaultArticleState);
-	const containerRef = useRef<HTMLFormElement | null>(null);
+	const formRef = useRef<HTMLFormElement | null>(null);
+
+	//Закрытие формы кликом по оверлею и нажатием на Escape
+	useClose({
+		isOpen: isFormOpen,
+		onClose: () => setIsFormOpen(false),
+		rootRef: formRef,
+	});
 
 	//Открытие/закрытие кнопкой-стрелкой
 	const handleArrowButtonClick = (isOpen: boolean) => {
 		setIsFormOpen(isOpen);
-	};
-
-	//Закрытие кликом по оверлею
-	const handleOutsideClick = (event: MouseEvent) => {
-		const test =
-			containerRef.current &&
-			event.composedPath().includes(containerRef.current);
-		if (event.target != containerRef.current && !test) {
-			setIsFormOpen(false);
-		}
 	};
 
 	//Обновление данных страницы, с учетом указанных значений в форме, при ее отправке(submit)
@@ -64,24 +63,17 @@ export const ArticleParamsForm = ({
 		setIsFormOpen(false);
 	};
 
-	useEffect(() => {
-		document.addEventListener('click', handleOutsideClick);
-
-		return () => {
-			document.removeEventListener('click', handleOutsideClick);
-		};
-	}, []);
-
 	return (
 		<div>
 			<ArrowButton isOpen={isFormOpen} onClick={handleArrowButtonClick} />
 			<aside
-				className={`${styles.container} ${
-					isFormOpen ? styles.containerOpen : ''
-				}`}>
+				className={clsx({
+					[styles.container]: true,
+					[styles.containerOpen]: isFormOpen
+				})}>
 				<form
 					className={styles.form}
-					ref={containerRef}
+					ref={formRef}
 					onSubmit={handleSubmit}>
 					<Text size={31} weight={800} uppercase>
 						{'Задайте параметры'}
