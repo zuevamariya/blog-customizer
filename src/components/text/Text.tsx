@@ -25,7 +25,6 @@ type TextProps = {
 	family?: FontFamiliesClasses;
 	/** Булевая пропса, делает динамическим только семью шрифтов и цвет */
 	dynamicLite?: boolean;
-	textButtonResetHover?: boolean;
 };
 
 export const Text = ({
@@ -39,7 +38,6 @@ export const Text = ({
 	align = 'left',
 	family = 'open-sans',
 	dynamicLite = false,
-	textButtonResetHover = children === 'Сбросить' ? true : false,
 }: TextProps) => {
 	const className = clsx(
 		styles.text,
@@ -51,7 +49,6 @@ export const Text = ({
 		styles[`${align}`],
 		styles[`${family}`],
 		{ [styles.dynamicLite]: dynamicLite },
-		{[styles.textButtonResetHover]: textButtonResetHover},
 	);
 	return <Tag className={className}>{children}</Tag>;
 };
